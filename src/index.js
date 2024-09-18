@@ -71,10 +71,10 @@ function editProfile (event) {
 // Функция добавления новой карточки
 function addNewCard (event) {
   event.preventDefault();
-  const newCardElement = {};
-  
-  newCardElement.name = inputNewPlaceName.value;
-  newCardElement.link = inputNewPlaceLink.value;
+  const newCardElement = {
+    name: inputNewPlaceName.value,
+    link: inputNewPlaceLink.value,
+  };
   cardContainer.prepend(renderCard(newCardElement, deleteCard, openPopupImage, addAndRemoveLike));
   closePopup(popupTypeNewCard);
   formNewPlace.reset();

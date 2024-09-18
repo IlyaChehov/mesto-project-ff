@@ -71,23 +71,23 @@ function editProfile (event) {
 // Функция добавления новой карточки
 function addNewCard (event) {
   event.preventDefault();
-  const NewCardElement = {};
+  const newCardElement = {};
   
-  NewCardElement.name = inputNewPlaceName.value;
-  NewCardElement.link = inputNewPlaceLink.value;
-  cardContainer.prepend(renderCard(NewCardElement, deleteCard, openPopupImage, addAndRemoveLike));
+  newCardElement.name = inputNewPlaceName.value;
+  newCardElement.link = inputNewPlaceLink.value;
+  cardContainer.prepend(renderCard(newCardElement, deleteCard, openPopupImage, addAndRemoveLike));
   closePopup(popupTypeNewCard);
   formNewPlace.reset();
 };
 
 // Функция открытия модального окна картинки
-function openPopupImage (elementPopup) {
+function openPopupImage (cardData) {
   const popupImg = document.querySelector('.popup__image');
   const popupCaption = document.querySelector('.popup__caption');
 
-  popupImg.src = elementPopup.src;
-  popupImg.alt = elementPopup.alt;
-  popupCaption.textContent = elementPopup.alt;
+  popupImg.src = cardData.link;
+  popupImg.alt = cardData.name;
+  popupCaption.textContent = cardData.name;
   openPopup(popupTypeImg);
 };
 

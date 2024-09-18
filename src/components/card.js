@@ -11,7 +11,7 @@ export function renderCard (elementCard, deleteCard, openPopupImage, addAndRemov
   itemImage.alt = elementCard.name;
   itemCard.querySelector('.card__title').textContent = elementCard.name;
   itemCard.querySelector('.card__delete-button').addEventListener('click', deleteCard);
-  itemImage.addEventListener('click', () => {openPopupImage(itemImage)});
+  itemImage.addEventListener('click', () => {openPopupImage(elementCard)});
   itemButton.addEventListener('click', () => {addAndRemoveLike(itemButton)});
 
   return itemCard;

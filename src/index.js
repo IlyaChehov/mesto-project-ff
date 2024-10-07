@@ -126,10 +126,14 @@ function enableValidation (validationData) {
 
 function setEventListener (formElement) {
   const inputList = Array.from(formElement.querySelectorAll(validationData.inputSelector));
+  const buttonElement = formElement.querySelector(validationData.submitButtonSelector);
+
+  toggleButtonState (inputList, buttonElement);
 
   inputList.forEach((inputElement) => {
     inputElement.addEventListener('input', () => {
       isValid (formElement, inputElement);
+      toggleButtonState (inputList, buttonElement);
     })
   });
 };
@@ -163,3 +167,47 @@ function hiddenInputError (formElement, inputElement) {
  errorElement.classList.remove(validationData.errorClass);
  errorElement.textContent = '';
 };
+
+function hasInvalidInput (inputList) {
+  return inputList.some((inputElement) => {
+    return !inputElement.validity.valid;
+  });
+};
+
+function toggleButtonState (inputList, buttonElement) {
+  if (hasInvalidInput(inputList)) {
+    buttonElement.disabled = true;
+    buttonElement.classList.add(validationData.inactiveButtonClass);
+  } else {
+    buttonElement.disabled = false;
+    buttonElement.classList.remove(validationData.inactiveButtonClass);
+  };
+};
+
+
+//////////////////////////////////////////////////////
+
+/*
+Токен: 08e81afe-9f10-459f-9a5e-d3c0212e073d
+Идентификатор группы: wff-cohort-24
+*/
+
+// fetch ('https://nomoreparties.co/v1/wff-cohort-24/cards', {
+//   headers: {
+//      authorization: '08e81afe-9f10-459f-9a5e-d3c0212e073d'
+//   }
+// })
+//   .then(res => res.json())
+//   .then((data) => {
+//     console.log(data);
+//   });
+
+// fetch ('https://nomoreparties.co/v1/wff-cohort-24/users/me', {
+//   headers: {
+//      authorization: '08e81afe-9f10-459f-9a5e-d3c0212e073d'
+//   }
+// })
+//   .then(res => res.json())
+//   .then((data) => {
+//     console.log(data);
+//   });

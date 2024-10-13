@@ -6,6 +6,8 @@
   color: #f00;
   font-weight: 400;
   font-size: 12px;
+  line-height: 1;
+  min-block-size: 24px;
 }
 
 .popup__error_visible {

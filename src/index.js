@@ -39,7 +39,9 @@ const popups = document.querySelectorAll('.popup');
 const popupTypeEdit = document.querySelector('.popup_type_edit');
 const popupTypeNewCard = document.querySelector('.popup_type_new-card');
 const popupTypeImg = document.querySelector('.popup_type_image');
-const popupTypeAvatar = document.querySelector('.popup_type_avatar')
+const popupTypeAvatar = document.querySelector('.popup_type_avatar');
+const popupImg = document.querySelector('.popup__image');
+const popupCaption = document.querySelector('.popup__caption');
 
 // DOM элементы кнопок
 const profileEditButton = document.querySelector('.profile__edit-button');
@@ -127,18 +129,18 @@ function editProfile (event) {
   const name = inputEditProfileName.value;
   const about = inputEditProfileDecsription.value;
 
-  profileTitle.textContent = name;
-  profileDescription.textContent = about;
-
   toggleTextButton (formButtonEditProfile, true);
 
   setEditProfile (name, about)
+    .then(() => {
+      profileTitle.textContent = name;
+      profileDescription.textContent = about;
+      closePopup(popupTypeEdit);
+    })
     .catch(err => console.log(`Ошибка: ${err}`))
     .finally(() => {
       toggleTextButton (formButtonEditProfile, false);
     })
-
-  closePopup(popupTypeEdit);
   formEditProfile.reset();
 };
 
@@ -160,10 +162,10 @@ function addNewCard (event) {
           deleteCard, 
           openPopupImage, 
           addOrRemoveLike));
+      closePopup(popupTypeNewCard);
     })
     .catch(err => console.log(`Ошибка: ${err}`))
     .finally(() => {toggleTextButton (formButtonNewPlace, false);
-      closePopup(popupTypeNewCard);
     });
     
   formNewPlace.reset();
@@ -179,11 +181,11 @@ function addNewAvatar (event) {
   changeAvatar(avatarLink)
     .then((data) => {
       profileAvatar.style.backgroundImage = `url(${data.avatar})`;
+      closePopup(popupTypeAvatar);
     })
     .catch(err => console.log(`Ошибка: ${err}`))
     .finally(() => {
       toggleTextButton (formButtonEditAvatar, false);
-      closePopup(popupTypeAvatar);
     });
 
   formEditAvatar.reset();
@@ -191,9 +193,6 @@ function addNewAvatar (event) {
 
 // Функция открытия модального окна картинки
 function openPopupImage (cardData) {
-  const popupImg = document.querySelector('.popup__image');
-  const popupCaption = document.querySelector('.popup__caption');
-
   popupImg.src = cardData.link;
   popupImg.alt = cardData.name;
   popupCaption.textContent = cardData.name;

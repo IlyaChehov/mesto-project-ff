@@ -50,9 +50,11 @@ export function deleteCard(event) {
   const cardItem = event.target.closest(".places__item");
   const cardId = cardItem.dataset.id;
 
-  deleteCardToServe(cardId).catch((err) => `Ошибка: ${err}`);
-
-  cardItem.remove();
+  deleteCardToServe(cardId)
+  .then(() => {
+    cardItem.remove();
+  })
+  .catch((err) => `Ошибка: ${err}`);
 }
 
 // Функция проверки лайка
